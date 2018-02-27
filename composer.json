@@ -1,0 +1,10 @@
+{
+    "name": "bytelovers/adcumulus-php-client",
+    "description": "A Client for Adcumulus API",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2@dev"
+    }
+}
