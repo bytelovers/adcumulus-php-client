@@ -5,19 +5,29 @@
     use GuzzleHttp\Client as GuzzleClient;
 
     class Client {
-        private $apiUrlAdmin      = "https://gui.%s.com/v1/service/rest/%s";
-        private $apiUrlAffiliate  = "https://gui.%s.com/v1/affiliate/service/rest-affiliate/%s";
-        private $apiUrlAdvertiser = "https://gui.%s.com/v1/advertiser/service/rest-advertiser/%s";
+        private $apiUrlAdmin      = "https://gui.%s.com/v1/service/rest%s";
+        private $apiUrlAffiliate  = "https://gui.%s.com/v1/affiliate/service/rest-affiliate%s";
+        private $apiUrlAdvertiser = "https://gui.%s.com/v1/advertiser/service/rest-advertiser%s";
 
         private $headers          = ["User-Agent" => "bytelovers-adcumulus-php-client/v0.0.0"];
 
         private $httpClient;
 
         private $apiDomain;
+        private $apiKey;
+        private $apiSecret;
         private $apiType;
 
-        private function __construct($apiDomain) {
+        public function __construct($apiDomain, $apiType, $apiKey, $apiSecret = null) {
             $this->setApiDomain($apiDomain);
+            $this->setApiType($apiType);
+            $this->setApiKey($apiKey);
+            $this->setApiSecret($apiSecret);
+            $this->setHttpClient(new GuzzleClient([
+                'defaults' => [
+                    'headers' => $this->getHeaders(),
+                ],
+            ]));
         }
 
         public function api($class) {
@@ -26,11 +36,20 @@
         }
 
         public function get($apiEndpoint, $parameters = []) {
-            $requestUrl = $this->buildUrl($apiEndpoint, $parameters);
-            $requestUrl = urldecode($requestUrl);
-            $count_fails = 0;
+            $requestUrl    = $this->buildUrl($apiEndpoint, $parameters);
+            $requestUrl    = urldecode($requestUrl);
+            $count_fails   = 0;
 
-            $response = $this->getHttpClient()->get($requestUrl);
+            $response      = $this
+                ->getHttpClient()
+                ->get(
+                    $requestUrl,
+                    [
+                        "headers" => [
+                            "Authorization" => "ApiKey " . $this->generateApikey($apiEndpoint)
+                        ]
+                    ]
+                );
             $json_response = $this->handleResponse($response);
 
             if (isset($json_response->response->errorMessage)) {
@@ -46,6 +65,23 @@
             //0.3 sec sleep between requests = 3 req/sec (30req / 10 sec)
             usleep(400000);
             return $json_response;
+        }
+
+        private function generateApikey($endpoint) {
+            if(!is_null($this->getApiSecret())) {
+                $apiKey = base64_encode(
+                    hash_hmac(
+                        'sha256',
+                        $endpoint,
+                        $this->getApiSecret(),
+                        true
+                    )
+                );
+            } else {
+                $apiKey = "simpleMode";
+            }
+            $apiKey = $this->getApiKey() . ":" . $apiKey;
+            return $apiKey;
         }
 
         private function buildUrl($apiEndpoint, $params) {
@@ -104,12 +140,36 @@
             $this->apiDomain = $apiDomain;
         }
 
+        public function getApiKey() {
+            return $this->apiKey;
+        }
+
+        public function setApiKey($apiKey) {
+            $this->apiKey = $apiKey;
+        }
+
+        public function getApiSecret() {
+            return $this->apiSecret;
+        }
+
+        public function setApiSecret($apiSecret) {
+            $this->apiSecret = $apiSecret;
+        }
+
         public function getApiType() {
             return $this->apiType;
         }
 
         public function setApiType($apiType) {
             $this->apiType = $apiType;
+        }
+
+        public function getHeaders() {
+            return $this->headers;
+        }
+
+        public function setHeaders($headers) {
+            $this->headers = $headers;
         }
 
         public function getHttpClient() {
