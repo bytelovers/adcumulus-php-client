@@ -5,9 +5,9 @@
     use GuzzleHttp\Client as GuzzleClient;
 
     class Client {
-        private $apiUrlAdmin      = "https://gui.%s.com/v1/service/rest%s";
-        private $apiUrlAffiliate  = "https://gui.%s.com/v1/affiliate/service/rest-affiliate%s";
-        private $apiUrlAdvertiser = "https://gui.%s.com/v1/advertiser/service/rest-advertiser%s";
+        private $apiUrlAdmin      = "http://gui.%s.com/v1/service/rest%s";
+        private $apiUrlAffiliate  = "http://gui.%s.com/v1/affiliate/service/rest-affiliate%s";
+        private $apiUrlAdvertiser = "http://gui.%s.com/v1/advertiser/service/rest-advertiser%s";
 
         private $headers          = ["User-Agent" => "bytelovers-adcumulus-php-client/v0.0.0"];
 
@@ -46,7 +46,10 @@
                     $requestUrl,
                     [
                         "headers" => [
-                            "Authorization" => "ApiKey " . $this->generateApikey($apiEndpoint)
+                            "Authorization" => "ApiKey " .
+                                $this->generateApikey(
+                                    parse_url($requestUrl, PHP_URL_PATH)
+                                )
                         ]
                     ]
                 );
