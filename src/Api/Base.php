@@ -7,6 +7,8 @@
 
         protected $endpointType;
 
+        protected $endpointName;
+
         public function __construct($httpClient) {
             $this->setHttpClient($httpClient);
             $this->getHttpClient()->setApiType($this->endpointType);

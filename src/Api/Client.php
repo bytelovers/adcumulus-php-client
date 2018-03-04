@@ -39,6 +39,7 @@
             $response      = $this->prepareHttpClient(
                 $apiEndpoint,
                 $parameters,
+                null,
                 "GET"
             );
 
@@ -106,9 +107,16 @@
             usleep(400000);
             return $json_response;
         }
+        public function delete($apiEndpoint) {
+            $response      = $this->prepareHttpClient(
+                $apiEndpoint,
+                null,
+                null,
+                "DELETE"
+            );
 
-        public function delete() {
-
+            $json_response = $this->handleResponse($response);
+            return $json_response;
         }
 
         private function prepareHttpClient($apiEndpoint, $parameters = [], $data = null, $method) {
@@ -137,7 +145,6 @@
                     throw new AdCumulusException("prepareHttpClient: Method not recognized");
             }
         }
-
         private function generateApikey($endpoint) {
             if(!is_null($this->getApiSecret())) {
                 $apiKey = base64_encode(
@@ -154,7 +161,6 @@
             $apiKey = $this->getApiKey() . ":" . $apiKey;
             return $apiKey;
         }
-
         private function buildUrl($apiEndpoint, $params) {
             switch($this->getApiType()) {
                 case "Admin":
@@ -169,7 +175,6 @@
             }
             return $url . http_build_query($params);
         }
-
         private function handleResponse($response) {
             $statusCode = $response->getStatusCode();
             $body       = json_decode($response->getBody());
