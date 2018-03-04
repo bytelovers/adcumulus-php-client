@@ -20,8 +20,8 @@
             return $this->getHttpClient()->post($path, $data, $parameters);
         }
 
-        public function put($path, $data, $parameters) {
-            return $this->getHttpClient()->put($path, $data, $parameters);
+        public function put($path, $data) {
+            return $this->getHttpClient()->put($path, $data);
         }
 
         public function getHttpClient() {

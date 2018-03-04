@@ -2,6 +2,7 @@
 
     namespace Bytelovers\AdCumulus;
 
+    use Bytelovers\Api\Exception\AdCumulusException;
     use GuzzleHttp\Client as GuzzleClient;
 
     class Client {
@@ -34,23 +35,13 @@
         }
 
         public function get($apiEndpoint, $parameters = []) {
-            $requestUrl    = $this->buildUrl($apiEndpoint, $parameters);
-            $requestUrl    = urldecode($requestUrl);
             $count_fails   = 0;
+            $response      = $this->prepareHttpClient(
+                $apiEndpoint,
+                $parameters,
+                "GET"
+            );
 
-            $response      = $this
-                ->getHttpClient()
-                ->get(
-                    $requestUrl,
-                    [
-                        "headers" => [
-                            "Authorization" => "ApiKey " .
-                                $this->generateApikey(
-                                    parse_url($requestUrl, PHP_URL_PATH)
-                                )
-                        ]
-                    ]
-                );
             $json_response = $this->handleResponse($response);
 
             if (isset($json_response->response->errorMessage)) {
@@ -66,6 +57,85 @@
             //0.3 sec sleep between requests = 3 req/sec (30req / 10 sec)
             usleep(400000);
             return $json_response;
+        }
+        public function post($apiEndpoint, $data = null) {
+            $count_fails   = 0;
+            $response      = $this->prepareHttpClient(
+                $apiEndpoint,
+                null,
+                "POST",
+                $data);
+
+            $json_response = $this->handleResponse($response);
+
+            if (isset($json_response->response->errorMessage)) {
+                $count_fails++;
+                $sleep_time = $count_fails * 2;
+
+                sleep($sleep_time);
+                if ($count_fails <= 5) {
+                    $this->post($apiEndpoint, $parameters = []);
+                }
+            }
+            //LIMIT 50 req per 10sec
+            //0.3 sec sleep between requests = 3 req/sec (30req / 10 sec)
+            usleep(400000);
+            return $json_response;
+        }
+        public function put($apiEndpoint, $data = null) {
+            $count_fails   = 0;
+            $response      = $this->prepareHttpClient(
+                $apiEndpoint,
+                null,
+                $data,
+                "PUT");
+
+            $json_response = $this->handleResponse($response);
+
+            if (isset($json_response->response->errorMessage)) {
+                $count_fails++;
+                $sleep_time = $count_fails * 2;
+
+                sleep($sleep_time);
+                if ($count_fails <= 5) {
+                    $this->put($apiEndpoint, $parameters = []);
+                }
+            }
+            //LIMIT 50 req per 10sec
+            //0.3 sec sleep between requests = 3 req/sec (30req / 10 sec)
+            usleep(400000);
+            return $json_response;
+        }
+
+        public function delete() {
+
+        }
+
+        private function prepareHttpClient($apiEndpoint, $parameters = [], $data = null, $method) {
+            $requestUrl       = $this->buildUrl($apiEndpoint, $parameters);
+            $requestUrl       = urldecode($requestUrl);
+
+            $generatedHeaders = [
+                "headers" => [
+                    "Authorization" => "ApiKey " .
+                        $this->generateApikey(
+                            parse_url($requestUrl, PHP_URL_PATH)
+                        )
+                ]
+            ];
+
+            switch ($method) {
+                case "GET":
+                    return $this->getHttpClient()->get($requestUrl, $generatedHeaders);
+                case "POST":
+                    return $this->getHttpClient()->post($requestUrl, $data, $generatedHeaders);
+                case "PUT":
+                    return $this->getHttpClient()->put($requestUrl, $data, $generatedHeaders);
+                case "DELETE":
+                    return $this->getHttpClient()->delete($requestUrl, $data, $generatedHeaders);
+                default:
+                    throw new AdCumulusException("prepareHttpClient: Method not recognized");
+            }
         }
 
         private function generateApikey($endpoint) {
