@@ -12,10 +12,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Bytelovers\\AdCumulus\\": "Api/"
+            "Bytelovers\\AdCumulus\\": "src/"
         }
     },
     "autoload-dev": {
-        "Bytelovers\\AdCumulus\\Test": "tests/"
+        "psr-4": {
+            "Bytelovers\\AdCumulus\\Test\\": "tests/"
+        }
     }
 }

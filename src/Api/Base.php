@@ -5,10 +5,11 @@
     class Base {
         private $httpClient;
 
-        protected $endpointUrl;
+        protected $endpointType;
 
         public function __construct($httpClient) {
             $this->setHttpClient($httpClient);
+            $this->getHttpClient()->setApiType($this->endpointType);
         }
 
         public function get($path, $parameters = []) {
@@ -31,11 +32,11 @@
             $this->httpClient = $httpClient;
         }
 
-        public function getEndpointUrl() {
-            return $this->endpointUrl;
+        public function getEndpointType() {
+            return $this->endpointType;
         }
 
-        public function setEndpointUrl($endpointUrl) {
-            $this->endpointUrl = $endpointUrl;
+        public function setEndpointType($endpointType) {
+            $this->endpointType = $endpointType;
         }
     }
