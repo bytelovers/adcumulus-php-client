@@ -11,8 +11,8 @@
         public function setUp() {
             $this->client = new AdCumulusClient(
                 "profit4ads",
-                "086ae4759af24e35958e5f0020237747",
-                "b33b2674176649a8a26f07e3f4c18f29"
+                getenv("ADCUMULUS_API_KEY"),
+                getenv("ADCUMULUS_API_SECRET")
             );
         }
 

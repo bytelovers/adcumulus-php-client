@@ -59,11 +59,11 @@
             usleep(400000);
             return $json_response;
         }
-        public function post($apiEndpoint, $data = null) {
+        public function post($apiEndpoint, $data = null, $parameters = []) {
             $count_fails   = 0;
             $response      = $this->prepareHttpClient(
                 $apiEndpoint,
-                null,
+                $parameters,
                 "POST",
                 $data);
 
@@ -83,11 +83,11 @@
             usleep(400000);
             return $json_response;
         }
-        public function put($apiEndpoint, $data = null) {
+        public function put($apiEndpoint, $data = null, $parameters = []) {
             $count_fails   = 0;
             $response      = $this->prepareHttpClient(
                 $apiEndpoint,
-                null,
+                $parameters,
                 $data,
                 "PUT");
 
@@ -173,7 +173,8 @@
                     $url = sprintf($this->apiUrlAdvertiser, $this->getApiDomain(), $apiEndpoint);
                     break;
             }
-            return $url . http_build_query($params);
+
+            return count($params) > 0 ? $url . "?" . http_build_query($params) : $url;
         }
         private function handleResponse($response) {
             $statusCode = $response->getStatusCode();

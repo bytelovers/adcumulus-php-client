@@ -130,7 +130,7 @@
             );
         }
 
-        public function getSignupAnswers($id) {
+        public function getSignupAnswers($id = null) {
             if (is_null($id)) {
                 throw new AdCumulusException("Id must be declared");
             }

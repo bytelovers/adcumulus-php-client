@@ -14,7 +14,7 @@
             $this->getHttpClient()->setApiType($this->endpointType);
         }
 
-        public function get($path, $parameters = []) {
+        public function get($path, $parameters) {
             return $this->getHttpClient()->get($path, $parameters);
         }
 
@@ -22,8 +22,8 @@
             return $this->getHttpClient()->post($path, $data, $parameters);
         }
 
-        public function put($path, $data) {
-            return $this->getHttpClient()->put($path, $data);
+        public function put($path, $data, $parameters) {
+            return $this->getHttpClient()->put($path, $data, $parameters);
         }
 
         public function getHttpClient() {
