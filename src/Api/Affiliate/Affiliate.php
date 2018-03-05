@@ -15,7 +15,7 @@
         }
 
         public function update($data = null, $parameters = []) {
-            return $this->post(implode("/", [
+            return $this->put(implode("/", [
                 $this->endpointName
             ]),
             $data,

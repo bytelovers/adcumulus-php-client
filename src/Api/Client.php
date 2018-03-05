@@ -8,7 +8,7 @@
     class Client {
         private $apiUrlAdmin      = "http://gui.%s.com/v1/service/rest/%s";
         private $apiUrlAffiliate  = "http://gui.%s.com/v1affiliate/service/rest-affiliate/%s";
-        private $apiUrlAdvertiser = "http://gui.%s.com/v1/advertiser/service/rest-advertiser/%s";
+        private $apiUrlAdvertiser = "http://gui.%s.com/v1advertiser/service/rest-advertiser/%s";
 
         private $headers          = ["User-Agent" => "bytelovers-adcumulus-php-client/v0.0.0"];
 
