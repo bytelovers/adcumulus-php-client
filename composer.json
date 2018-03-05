@@ -3,8 +3,8 @@
     "description": "A Client for Adcumulus API",
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
     "require": {
+        "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2@dev"
     },
     "require-dev": {
@@ -19,5 +19,6 @@
         "psr-4": {
             "Bytelovers\\AdCumulus\\Test\\": "tests/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
