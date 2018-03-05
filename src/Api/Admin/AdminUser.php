@@ -32,11 +32,39 @@
         }
 
         public function getById($id = null, $returnObject = true) {
+            if (is_null($id)) {
+                throw new AdCumulusException("Id must be declared");
+            }
+
             return $this->get(implode("/", [
                     $this->endpointName,
                     $id
                 ]),
                 ["return_object" => $returnObject]
+            );
+        }
+
+        public function delete($id = null) {
+            if (is_null($id)) {
+                throw new AdCumulusException("Id must be declared");
+            }
+
+            return $this->delete(implode("/", [
+                    $this->endpointName,
+                    $id
+                ])
+            );
+        }
+
+        public function getResources($id = null) {
+            if (is_null($id)) {
+                throw new AdCumulusException("Id must be declared");
+            }
+
+            return $this->get(implode("/", [
+                    $this->endpointName,
+                    "resources"
+                ])
             );
         }
     }
