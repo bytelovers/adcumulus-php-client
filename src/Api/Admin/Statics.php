@@ -4,20 +4,19 @@
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
-    class Vat extends Base {
+    class Statics extends Base {
 
         protected $endpointType = "Admin";
-        protected $endpointName = "vat";
+        protected $endpointName = "statics";
 
-        public function getAll($id = null, $parameters = []) {
+        public function getStatistics($id = null, $parameters = []) {
             if (is_null($id)) {
                 throw new AdCumulusException("Id must be declared");
             }
 
             return $this->get(implode("/",
                 [
-                    $this->endpointName,
-                    "getAll"
+                    $this->endpointName
                 ]),
                 $parameters
             );
