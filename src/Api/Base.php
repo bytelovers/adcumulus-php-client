@@ -7,12 +7,14 @@
 
         protected $endpointType;
 
+        protected $endpointName;
+
         public function __construct($httpClient) {
             $this->setHttpClient($httpClient);
             $this->getHttpClient()->setApiType($this->endpointType);
         }
 
-        public function get($path, $parameters = []) {
+        public function get($path, $parameters) {
             return $this->getHttpClient()->get($path, $parameters);
         }
 

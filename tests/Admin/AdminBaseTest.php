@@ -4,19 +4,18 @@
     use PHPUnit\Framework\TestCase;
     use Bytelovers\AdCumulus\Client as AdCumulusClient;
 
-    class AffiliateTest extends TestCase {
+    class ClassName extends TestCase {
+        protected $client = null;
 
-
-        public function testAffiliateGetData(): void {
-            $client = new AdCumulusClient(
+        public function setUp() {
+            $this->client = new AdCumulusClient(
                 "profit4ads",
                 getenv("ADCUMULUS_API_KEY"),
                 getenv("ADCUMULUS_API_SECRET")
             );
+        }
 
-            $affiliate = $client->api("Affiliate\Affiliate");
-
-            $results = $affiliate->getData();
-            var_dump($results);
+        public function tearDown() {
+            $this->client = null;
         }
     }
