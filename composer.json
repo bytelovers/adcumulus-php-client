@@ -1,0 +1,24 @@
+{
+    "name": "bytelovers/adcumulus-php-client",
+    "description": "A Client for Adcumulus API",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^7.0",
+        "guzzlehttp/guzzle": "^6.2@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bytelovers\\AdCumulus\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bytelovers\\AdCumulus\\Test\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev"
+}
