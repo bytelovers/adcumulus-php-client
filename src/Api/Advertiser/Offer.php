@@ -48,4 +48,14 @@
                 $parameters
             );
         }
+
+        public function offersReport($parameters = []) {
+            return $this->get(implode("/",
+                [
+                    "reports",
+                    "offersReport"
+                ]),
+                $parameters
+            );
+        }
     }

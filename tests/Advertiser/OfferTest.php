@@ -10,10 +10,17 @@
             var_dump($results);
         }
 
-        public function testAdminOfferFindAll(): void {
+        public function testAdvertiserOfferFindAll(): void {
             $advertiser = $this->client->api("Advertiser\Offer");
 
             $results = $advertiser->findAll();
+            var_dump($results);
+        }
+
+        public function testAdvertiserOfferOffersReport(): void {
+            $advertiser = $this->client->api("Advertiser\Offer");
+
+            $results = $advertiser->offersReport();
             var_dump($results);
         }
     }
