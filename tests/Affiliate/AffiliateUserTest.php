@@ -3,7 +3,7 @@
 
     class AffiliateUserTest extends AffiliateBaseTest {
 
-        public function testAffiliateGetData(): void {
+        public function testAffiliateGetById(): void {
             $affiliate = $this->client->api('Affiliate\AffiliateUser');
 
             $results = $affiliate->getById(1707);
