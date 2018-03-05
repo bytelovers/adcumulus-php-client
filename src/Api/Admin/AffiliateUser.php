@@ -4,7 +4,7 @@
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
-    class AdminUser extends Base {
+    class AffiliateUser extends Base {
         protected $endpointType = "Admin";
         protected $endpointName = "affiliateUser";
 
