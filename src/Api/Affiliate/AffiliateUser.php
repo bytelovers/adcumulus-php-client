@@ -1,23 +1,24 @@
 <?php
-    namespace Bytelovers\AdCumulus\Api\Admin;
+    namespace Bytelovers\AdCumulus\Api\Affiliate;
 
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
     class AffiliateUser extends Base {
-        protected $endpointType = "Admin";
+
+        protected $endpointType = "Affiliate";
         protected $endpointName = "affiliateUser";
 
-        public function create($data, $returnObject = true) {
+        public function create($data = null, $parameters = []) {
             return $this->post(implode("/", [
                     $this->endpointName
                 ]),
                 $data,
-                ["return_object" => $returnObject]
+                $parameters
             );
         }
 
-        public function update($id = null, $data = null, $returnObject = true) {
+        public function update($id = null, $data = null, $parameters = []) {
             if (is_null($id)) {
                 throw new AdCumulusException("Id must be declared");
             }
@@ -27,11 +28,11 @@
                     $id
                 ]),
                 $data,
-                ["return_object" => $returnObject]
+                $parameters
             );
         }
 
-        public function getById($id = null, $returnObject = true) {
+        public function getById($id = null, $parameters = []) {
             if (is_null($id)) {
                 throw new AdCumulusException("Id must be declared");
             }
@@ -40,19 +41,16 @@
                     $this->endpointName,
                     $id
                 ]),
-                ["return_object" => $returnObject]
+                $parameters
             );
         }
 
-        public function findAll($id = null) {
-            if (is_null($id)) {
-                throw new AdCumulusException("Id must be declared");
-            }
-
+        public function getPermission($parameters = []) {
             return $this->get(implode("/", [
                     $this->endpointName,
-                    "findAll"
-                ])
+                    "permission"
+                ]),
+                $parameters
             );
         }
 
@@ -64,18 +62,6 @@
             return $this->delete(implode("/", [
                     $this->endpointName,
                     $id
-                ])
-            );
-        }
-
-        public function getResources($id = null) {
-            if (is_null($id)) {
-                throw new AdCumulusException("Id must be declared");
-            }
-
-            return $this->get(implode("/", [
-                    $this->endpointName,
-                    "resources"
                 ])
             );
         }

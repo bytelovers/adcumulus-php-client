@@ -4,10 +4,10 @@
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
-    class Statics extends Base {
+    class Statistics extends Base {
 
         protected $endpointType = "Admin";
-        protected $endpointName = "statics";
+        protected $endpointName = "statistics";
 
         public function getStatistics($parameters = []) {
             return $this->get(implode("/",
