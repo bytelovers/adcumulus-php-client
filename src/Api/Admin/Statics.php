@@ -9,11 +9,7 @@
         protected $endpointType = "Admin";
         protected $endpointName = "statics";
 
-        public function getStatistics($id = null, $parameters = []) {
-            if (is_null($id)) {
-                throw new AdCumulusException("Id must be declared");
-            }
-
+        public function getStatistics($parameters = []) {
             return $this->get(implode("/",
                 [
                     $this->endpointName

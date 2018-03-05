@@ -4,16 +4,16 @@
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
-    class Vat extends Base {
+    class Reports extends Base {
 
         protected $endpointType = "Admin";
-        protected $endpointName = "vat";
+        protected $endpointName = "reports";
 
-        public function getAll($parameters = []) {
+        public function exportRawConversions($parameters = []) {
             return $this->get(implode("/",
                 [
                     $this->endpointName,
-                    "getAll"
+                    "rawConversions"
                 ]),
                 $parameters
             );
