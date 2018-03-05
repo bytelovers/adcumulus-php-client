@@ -1,20 +1,7 @@
 <?php
     namespace Bytelovers\AdCumulus\Test;
 
-    use PHPUnit\Framework\TestCase;
-    use Bytelovers\AdCumulus\Client as AdCumulusClient;
-
-    class AffiliateUserTest extends TestCase {
-
-        protected $client = null;
-
-        public function setUp() {
-            $this->client = new AdCumulusClient(
-                "profit4ads",
-                getenv("ADCUMULUS_API_KEY"),
-                getenv("ADCUMULUS_API_SECRET")
-            );
-        }
+    class AffiliateUserTest extends AdminBaseTest {
 
         public function testAdminAffiliateGetById(): void {
             $affiliate = $this->client->api("Admin\AffiliateUser");
@@ -35,9 +22,5 @@
 
             $results = $affiliate->getResources();
             var_dump($results);
-        }
-
-        public function tearDown() {
-            $this->client = null;
         }
     }
