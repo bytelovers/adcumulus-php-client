@@ -32,8 +32,8 @@ try {
 ```
 
 ## Supported
-- Admin API
+- [x] Admin API
 
-##TODO
-* Affiliate API
-* Advertiser API
+## TODO
+- [ ] Affiliate API
+- [ ] Advertiser API
