@@ -271,7 +271,6 @@
          * @version 1.0.0
          *
          * @param int|null $id
-         * @param null $id
          * @return \Psr\Http\Message\ResponseInterface
          */
         public function getSignupAnswers($id = null) {
