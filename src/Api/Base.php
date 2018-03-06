@@ -1,10 +1,21 @@
 <?php
 
     namespace Bytelovers\AdCumulus;
+    use phpDocumentor\Reflection\Types\String_;
 
+    /**
+     * Class Base
+     * @package Bytelovers\AdCumulus
+     */
     class Base {
+        /**
+         * @var $httpClient \GuzzleHttp\Client
+         */
         private $httpClient;
 
+        /**
+         * @var $endpointType string
+         */
         protected $endpointType;
 
         protected $endpointName;
@@ -14,6 +25,11 @@
             $this->getHttpClient()->setApiType($this->endpointType);
         }
 
+        /**
+         * @param $path string Complete URL to call to API
+         * @param $parameters array A list of params to inject in the query
+         * @return \Psr\Http\Message\ResponseInterface
+         */
         public function get($path, $parameters) {
             return $this->getHttpClient()->get($path, $parameters);
         }
@@ -34,10 +50,16 @@
             $this->httpClient = $httpClient;
         }
 
+        /**
+         * @return string $endpointType
+         */
         public function getEndpointType() {
             return $this->endpointType;
         }
 
+        /**
+         * @param string $endpointType
+         */
         public function setEndpointType($endpointType) {
             $this->endpointType = $endpointType;
         }

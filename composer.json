@@ -5,10 +5,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.0",
-        "guzzlehttp/guzzle": "^6.2@dev"
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.1@dev"
+        "phpunit/phpunit": "^7.0",
+        "phpdocumentor/phpdocumentor": "^2.9"
     },
     "autoload": {
         "psr-4": {
@@ -20,5 +21,12 @@
             "Bytelovers\\AdCumulus\\Test\\": "tests/"
         }
     },
-    "minimum-stability": "dev"
+    "scripts": {
+        "php:doc": [
+            "@doc:clean",
+            "php ./vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t docs/api"
+        ],
+        "doc:clean": "rm -rf docs/api"
+    },
+    "minimum-stability": "stable"
 }
