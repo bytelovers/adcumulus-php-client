@@ -30,6 +30,7 @@
          *
          * @param int $id
          * @param array $parameters
+         * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
          * @return \Psr\Http\Message\ResponseInterface
          */
         public function getById($id = null, $parameters = []) {

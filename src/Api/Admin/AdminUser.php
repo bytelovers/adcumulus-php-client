@@ -51,6 +51,7 @@
          * @param int $id
          * @param object $data
          * @param bool $returnObject
+         * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
          * @return \Psr\Http\Message\ResponseInterface
          */
         public function update($id = null, $data = null, $returnObject = true) {
@@ -77,6 +78,7 @@
          *
          * @param int $id
          * @param bool $returnObject
+         * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
          * @return \Psr\Http\Message\ResponseInterface
          */
         public function getById($id = null, $returnObject = true) {
@@ -101,6 +103,7 @@
          * @version 1.0.0
          *
          * @param int $id
+         * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
          * @return mixed
          */
         public function delete($id = null) {
@@ -124,6 +127,7 @@
          * @version 1.0.0
          *
          * @param int $id
+         * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
          * @return \Psr\Http\Message\ResponseInterface
          */
         public function getResources($id = null) {
