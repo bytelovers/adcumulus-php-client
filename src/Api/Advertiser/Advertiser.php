@@ -4,9 +4,20 @@
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
+    /**
+     * Class Advertiser
+     * @package Bytelovers\AdCumulus\Api\Advertiser
+     */
     class Advertiser extends Base {
 
+        /**
+         * @var string $endpointType
+         */
         protected $endpointType = "Advertiser";
+
+        /**
+         * @var string $endpointName
+         */
         protected $endpointName = "advertiser";
 
         public function getData($parameters = []) {
@@ -20,11 +31,11 @@
 
         public function update($data = null, $parameters = []) {
             return $this->put(implode("/", [
-                $this->endpointName,
-                "update"
-            ]),
-            $data,
-            $parameters
+                    $this->endpointName,
+                    "update"
+                ]),
+                $data,
+                $parameters
             );
         }
 
