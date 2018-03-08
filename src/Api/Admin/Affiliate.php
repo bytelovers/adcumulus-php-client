@@ -4,9 +4,20 @@
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
+    /**
+     * Class Affiliate
+     * @package Bytelovers\AdCumulus\Api\Admin
+     */
     class Affiliate extends Base {
 
+        /**
+         * @var string $endpointType
+         */
         protected $endpointType = "Admin";
+
+        /**
+         * @var string $endpointName
+         */
         protected $endpointName = "affiliate";
 
         /**
