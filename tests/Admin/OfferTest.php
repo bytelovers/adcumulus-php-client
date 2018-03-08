@@ -1,7 +1,7 @@
 <?php
     namespace Bytelovers\AdCumulus\Test;
 
-    class AdminUserTest extends AdminBaseTest {
+    class OfferTest extends AdminBaseTest {
 
         public function testAdminOfferGetById(): void {
             $affiliate = $this->client->api("Admin\Offer");

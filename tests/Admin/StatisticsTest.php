@@ -1,7 +1,7 @@
 <?php
     namespace Bytelovers\AdCumulus\Test;
 
-    class AdminUserTest extends AdminBaseTest {
+    class StatisticsTest extends AdminBaseTest {
 
         public function testAdminStaticsGetStatics(): void {
             $statics = $this->client->api("Admin\Statics");
