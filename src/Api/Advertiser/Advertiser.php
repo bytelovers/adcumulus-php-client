@@ -20,6 +20,17 @@
          */
         protected $endpointName = "advertiser";
 
+        /**
+         * Get all advertiser data
+         *
+         * @api
+         * GET /v1advertiser/service/rest-advertiser/advertiser/getData
+         *
+         * @version 1.5.0
+         *
+         * @param array $parameters 
+         * @return \Psr\Http\Message\ResponseInterface
+         */
         public function getData($parameters = []) {
             return $this->get(implode("/", [
                     $this->endpointName,
@@ -29,25 +40,24 @@
             );
         }
 
+        /**
+         * Update advertiser
+         *
+         * @api
+         * PUT /v1advertiser/service/rest-advertiser/advertiser/update
+         *
+         * @version 1.5.0
+         *
+         * @param object $data
+         * @param array $parameters 
+         * @return \Psr\Http\Message\ResponseInterface
+         */
         public function update($data = null, $parameters = []) {
             return $this->put(implode("/", [
                     $this->endpointName,
                     "update"
                 ]),
                 $data,
-                $parameters
-            );
-        }
-
-        public function getById($id = null, $parameters = []) {
-            if (is_null($id)) {
-                throw new AdCumulusException("Id must be declared");
-            }
-            return $this->get(implode("/", [
-                $this->endpointName,
-                "getById",
-                $id
-            ]),
                 $parameters
             );
         }
