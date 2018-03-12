@@ -6,6 +6,10 @@
     use GuzzleHttp\Client as GuzzleClient;
 
     class Client {
+        const ADMIN               = "Admin";
+        const AFFILIATE           = "Affiliate";
+        const ADVERTISER          = "Advertiser";
+
         private $apiUrlAdmin      = "http://gui.%s.com/v1/service/rest/%s";
         private $apiUrlAffiliate  = "http://gui.%s.com/v1affiliate/service/rest-affiliate/%s";
         private $apiUrlAdvertiser = "http://gui.%s.com/v1advertiser/service/rest-advertiser/%s";
@@ -163,13 +167,13 @@
         }
         private function buildUrl($apiEndpoint, $params) {
             switch($this->getApiType()) {
-                case "Admin":
+                case self::ADMIN:
                     $url = sprintf($this->apiUrlAdmin, $this->getApiDomain(), $apiEndpoint);
                     break;
-                case "Affiliate":
+                case self::AFFILIATE:
                     $url = sprintf($this->apiUrlAffiliate, $this->getApiDomain(), $apiEndpoint);
                     break;
-                case "Advertiser":
+                case self::ADVERTISER:
                     $url = sprintf($this->apiUrlAdvertiser, $this->getApiDomain(), $apiEndpoint);
                     break;
             }
