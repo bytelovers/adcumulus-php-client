@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Bytelovers\\AdCumulus\\": "src/Api/"
+            "Bytelovers\\AdCumulus\\": "src/"
         }
     },
     "autoload-dev": {

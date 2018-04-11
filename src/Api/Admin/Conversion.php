@@ -36,7 +36,7 @@
 
         public function addConversions($conversions) {
             $formatter = Formatter::make($conversions, Formatter::JSON);
-            $csv = $formatter->toCsv();
+            $csv = $formatter->toCsv("\n", ";", '');
 
             $this->writeCsv($csv, "./conversions.csv");
         }
