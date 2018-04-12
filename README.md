@@ -33,7 +33,5 @@ try {
 
 ## Supported
 - [x] Admin API
-
-## TODO
-- [ ] Affiliate API
-- [ ] Advertiser API
+- [x] Affiliate API
+- [x] Advertiser API

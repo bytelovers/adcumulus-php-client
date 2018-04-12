@@ -1,19 +1,19 @@
 <?php
-    namespace Bytelovers\AdCumulus\Api\Admin;
+    namespace Bytelovers\AdCumulus\Api\Affiliate;
 
     use Bytelovers\AdCumulus\Api\Exception as AdCumulusException;
     use Bytelovers\AdCumulus\Base;
 
     /**
      * Class AffiliateUser
-     * @package Bytelovers\AdCumulus\Api\Admin
+     * @package Bytelovers\AdCumulus\Api\Affiliate
      */
     class AffiliateUser extends Base {
 
         /**
          * @var string $endpointType
          */
-        protected $endpointType = "Admin";
+        protected $endpointType = "Affiliate";
 
         /**
          * @var string $endpointName
@@ -21,23 +21,23 @@
         protected $endpointName = "affiliateUser";
 
         /**
-         * Create affiliate user.
+         * Create affiliate user
          *
          * @api
-         * POST /v1/service/rest/affiliateUser?return_object={return_object}
+         * POST /v1affiliate/service/rest-affiliate/affiliateUser
          *
          * @version 1.0.0
          *
          * @param object $data
-         * @param bool $returnObject
+         * @param array $parameters
          * @return \Psr\Http\Message\ResponseInterface
          */
-        public function create($data = null, $returnObject = true) {
+        public function create($data = null, $parameters = []) {
             return $this->post(implode("/", [
                     $this->endpointName
                 ]),
                 $data,
-                ["return_object" => $returnObject]
+                $parameters
             );
         }
 
@@ -45,17 +45,17 @@
          * Update affiliate user
          *
          * @api
-         * PUT /v1/service/rest/affiliateUser/{affiliateId}?{return_object}
+         * PUT /v1affiliate/service/rest-affiliate/affiliateUser/{userId}
          *
-         * @version 1.0.0
+         * @version 1.5.0
          *
          * @param int $id
          * @param object $data
-         * @param bool $returnObject
+         * @param array $parameters
          * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
          * @return \Psr\Http\Message\ResponseInterface
          */
-        public function update($id = null, $data = null, $returnObject = true) {
+        public function update($id = null, $data = null, $parameters = []) {
             if (is_null($id)) {
                 throw new AdCumulusException("Id must be declared");
             }
@@ -65,23 +65,24 @@
                     $id
                 ]),
                 $data,
-                ["return_object" => $returnObject]
+                $parameters
             );
         }
 
         /**
-         * Get affiliate user by id
+         * Get affiliate user by ID
          *
          * @api
-         * GET /v1/service/rest/affiliateUser/{userId}
+         * GET /v1affiliate/service/rest-affiliate/affiliateUser/{userId}
          *
-         * @version 1.0.0
+         * @version 1.5.0
          *
          * @param int $id
+         * @param array $parameters
          * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
          * @return \Psr\Http\Message\ResponseInterface
          */
-        public function getById($id = null) {
+        public function getById($id = null, $parameters = []) {
             if (is_null($id)) {
                 throw new AdCumulusException("Id must be declared");
             }
@@ -90,31 +91,27 @@
                     $this->endpointName,
                     $id
                 ]),
-                null
+                $parameters
             );
         }
 
         /**
-         * Get all active and blocked affiliate users
+         * Get a list of all possible permissions for affiliate users
          *
          * @api
-         * GET /v1/service/rest/affiliateUser/findAll
+         * GET /v1affiliate/service/rest-affiliate/affiliateUser/permission
          *
-         * @version 1.30.0
+         * @version 1.5.0
          *
-         * @param int $id
+         * @param array $parameters
          * @return \Psr\Http\Message\ResponseInterface
          */
-        public function findAll($id = null) {
-            if (is_null($id)) {
-                throw new AdCumulusException("Id must be declared");
-            }
-
+        public function getPermission($parameters = []) {
             return $this->get(implode("/", [
                     $this->endpointName,
-                    "findAll"
+                    "permission"
                 ]),
-            null
+                $parameters
             );
         }
 
@@ -122,13 +119,11 @@
          * Delete affiliate user
          *
          * @api
-         * DELETE /v1/service/rest/affiliateUser/{userId}
-         *
-         * @version 1.0.0
+         * DELETE /v1affiliate/service/rest-affiliate/affiliateUser/{userId}
          *
          * @param int $id
          * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
-         * @return mixed
+         * @return \Psr\Http\Message\ResponseInterface
          */
         public function delete($id = null) {
             if (is_null($id)) {
@@ -139,31 +134,6 @@
                     $this->endpointName,
                     $id
                 ])
-            );
-        }
-
-        /**
-         * Get list of allowed resources for affiliate users
-         *
-         * @api
-         * GET /v1/service/rest/affiliateUser/resources
-         *
-         * @version 1.0.0
-         *
-         * @param int $id
-         * @throws \Bytelovers\Api\Exception\AdCumulusException if $id is null
-         * @return \Psr\Http\Message\ResponseInterface
-         */
-        public function getResources($id = null) {
-            if (is_null($id)) {
-                throw new AdCumulusException("Id must be declared");
-            }
-
-            return $this->get(implode("/", [
-                    $this->endpointName,
-                    "resources"
-                ]),
-                null
             );
         }
     }
