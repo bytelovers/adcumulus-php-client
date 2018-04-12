@@ -38,6 +38,6 @@
             $formatter = Formatter::make($conversions, Formatter::JSON);
             $csv = $formatter->toCsv("\n", ";", '');
 
-            $this->writeCsv($csv, "./conversions.csv");
+            $this->writeCsv($csv, "./storage/app/conversions.csv");
         }
     }
